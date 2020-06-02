@@ -1468,7 +1468,7 @@ void CPlugin::CleanUpMyNonDx9Stuff()
 
     DeleteCriticalSection(&g_cs);
 
-    CancelThread(0);
+    CancelThread(1000);
 
 	m_menuPreset  .Finish();
 	m_menuWave    .Finish();
@@ -8434,9 +8434,13 @@ retry:
 	        EnterCriticalSection(&g_cs);
         
             //g_plugin.m_presets  = temp_presets;
-            for (int i=g_plugin.m_nPresets; i<temp_nPresets; i++)
-                g_plugin.m_presets.push_back(temp_presets[i]);
-            g_plugin.m_nPresets = temp_nPresets;
+            int curPreset=g_plugin.m_nPresets;
+            while (!g_bThreadShouldQuit && curPreset<temp_nPresets)
+            {
+                g_plugin.m_presets.push_back(temp_presets[curPreset]);
+                curPreset++;
+            }
+            g_plugin.m_nPresets = curPreset;
             g_plugin.m_nDirs    = temp_nDirs;
         	
             LeaveCriticalSection(&g_cs);
