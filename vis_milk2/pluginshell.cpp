@@ -2504,6 +2504,9 @@ LRESULT CPluginShell::PluginShellWindowProc(HWND hWnd, unsigned uMsg, WPARAM wPa
 
 	switch (uMsg)
 	{
+	case WM_NCCALCSIZE:
+		return 0;
+
 	case WM_USER:
 		if (m_screenmode == DESKTOP)
 		{
@@ -2785,6 +2788,8 @@ LRESULT CPluginShell::PluginShellWindowProc(HWND hWnd, unsigned uMsg, WPARAM wPa
 				ToggleFullScreen();
 				return 0;
 			}
+			if (uMsg == WM_LBUTTONDOWN)
+				SendMessage(hWnd, WM_NCLBUTTONDOWN, HTCAPTION, (LPARAM)0);
 		}
 		else
 		{
@@ -2914,6 +2919,39 @@ LRESULT CPluginShell::PluginShellWindowProc(HWND hWnd, unsigned uMsg, WPARAM wPa
 		// Prevent the user from selecting the menu in fullscreen mode
 		if (m_screenmode != WINDOWED)
 			return HTCLIENT;
+		else
+		{
+			int mouseX = GET_X_LPARAM(lParam);
+			int mouseY = GET_Y_LPARAM(lParam);
+			int border = 20;
+			RECT wRect;
+			GetWindowRect(hWnd, &wRect);
+
+			if (mouseY < wRect.top + border)
+			{
+				if (mouseX < wRect.left + border)
+					return HTTOPLEFT;
+				else if (mouseX > wRect.right - border)
+					return HTTOPRIGHT;
+				else
+					return HTTOP;
+			}
+			else if (mouseY > wRect.bottom - border)
+			{
+				if (mouseX < wRect.left + border)
+					return HTBOTTOMLEFT;
+				else if (mouseX > wRect.right - border)
+					return HTBOTTOMRIGHT;
+				else
+					return HTBOTTOM;
+			}
+			else if (mouseX < wRect.left + border)
+				return HTLEFT;
+			else if (mouseX > wRect.right - border)
+				return HTRIGHT;
+			else
+				return HTCLIENT;
+		}
 		break;
 
 	case WM_SYSCOMMAND:
