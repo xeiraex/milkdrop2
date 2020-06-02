@@ -721,7 +721,7 @@ BEGIN
     IDS_80X60_SLOW          " 80 x 60 slow "
     IDS_96X72_SLOW          " 96 x 72 SLOW "
     IDS_128X96_SLOW         "128 x 96 SLOW "
-    IDS_ERROR_IN_SHELLEXECUTE "error in ShellExecute"
+    IDS_ERROR_OPENING_FILE  "Error Opening File"
 END
 
 STRINGTABLE 

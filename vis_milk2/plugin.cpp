@@ -7163,8 +7163,9 @@ BOOL CPlugin::MyConfigTabProc(int nPage, HWND hwnd,UINT msg,WPARAM wParam,LPARAM
 						    intptr_t ret = (intptr_t)ShellExecuteW(NULL, L"open", szFile, NULL, szPath, SW_SHOWNORMAL);
 						    if (ret <= 32)
 						    {
-								wchar_t* str = WASABI_API_LNGSTRINGW(IDS_ERROR_IN_SHELLEXECUTE);
-								MessageBoxW(hwnd, str, str, MB_OK|MB_SETFOREGROUND|MB_TOPMOST|MB_TASKMODAL);
+								wchar_t* title = WASABI_API_LNGSTRINGW(IDS_ERROR_OPENING_FILE);
+								wchar_t* message = GetShellExecuteReturnDescription(ret);
+								MessageBoxW(hwnd, message, title, MB_OK|MB_SETFOREGROUND|MB_TOPMOST|MB_TASKMODAL);
 						    }
 					    }
 				    }
@@ -7183,8 +7184,9 @@ BOOL CPlugin::MyConfigTabProc(int nPage, HWND hwnd,UINT msg,WPARAM wParam,LPARAM
 						    intptr_t ret = (intptr_t)ShellExecuteW(NULL, L"open", szFile, NULL, szPath, SW_SHOWNORMAL);
 						    if (ret <= 32)
 						    {
-								wchar_t* str = WASABI_API_LNGSTRINGW(IDS_ERROR_IN_SHELLEXECUTE);
-								MessageBoxW(hwnd, str, str, MB_OK|MB_SETFOREGROUND|MB_TOPMOST|MB_TASKMODAL);
+								wchar_t* title = WASABI_API_LNGSTRINGW(IDS_ERROR_OPENING_FILE);
+								wchar_t* message = GetShellExecuteReturnDescription(ret);
+								MessageBoxW(hwnd, message, title, MB_OK|MB_SETFOREGROUND|MB_TOPMOST|MB_TASKMODAL);
 						    }
 					    }
 				    }

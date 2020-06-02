@@ -56,7 +56,7 @@
 #define IDS_80X60_SLOW                  59
 #define IDS_96X72_SLOW                  60
 #define IDS_128X96_SLOW                 61
-#define IDS_ERROR_IN_SHELLEXECUTE       62
+#define IDS_ERROR_OPENING_FILE          62
 #define IDS_MESH_SIZE                   65
 #define IDS_MESH_SIZE_TEXT              66
 #define IDS_CB_ALWAYS3D                 67

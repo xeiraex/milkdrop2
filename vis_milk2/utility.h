@@ -95,6 +95,7 @@ bool ReadCBValue(HWND hwnd, DWORD ctrl_id, int* pRetValue);
 
 LRESULT GetWinampVersion(HWND winamp);
 void* GetTextResource(UINT id, int no_fallback);
+wchar_t* GetShellExecuteReturnDescription(intptr_t ret);
 
 HMODULE FindD3DX9(HWND winamp);
 

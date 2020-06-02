@@ -1253,3 +1253,37 @@ void* GetTextResource(UINT id, int no_fallback){
 	}
 	return data;
 }
+
+wchar_t* GetShellExecuteReturnDescription(intptr_t ret)
+{
+    switch(ret)
+    {
+    case 0:
+        return L"The operating system is out of memory or resources.";
+    case ERROR_FILE_NOT_FOUND:
+        return L"The specified file was not found.";
+    case ERROR_PATH_NOT_FOUND:
+        return L"The specified path was not found.";
+    case ERROR_BAD_FORMAT:
+        return L"The .exe file is invalid (non-Win32 .exe or error in .exe image).";
+    case SE_ERR_ACCESSDENIED:
+        return L"The operating system denied access to the specified file.";
+    case SE_ERR_ASSOCINCOMPLETE:
+        return L"The file name association is incomplete or invalid.";
+    case SE_ERR_DDEBUSY:
+        return L"The DDE transaction could not be completed because other DDE transactions were being processed.";
+    case SE_ERR_DDEFAIL:
+        return L"The DDE transaction failed.";
+    case SE_ERR_DDETIMEOUT:
+        return L"The DDE transaction could not be completed because the request timed out.";
+    case SE_ERR_DLLNOTFOUND:
+        return L"The specified DLL was not found.";
+    case SE_ERR_NOASSOC:
+        return L"There is no application associated with the given file name extension. This error will also be returned if you attempt to print a file that is not printable.";
+    case SE_ERR_OOM:
+        return L"There was not enough memory to complete the operation.";
+    case SE_ERR_SHARE:
+        return L"A sharing violation occurred.";
+    }
+    return L"An undocumented error occurred.";
+}
