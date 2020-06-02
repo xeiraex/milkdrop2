@@ -435,7 +435,7 @@ IDR_TEXT1               TEXT                    "text1.bin"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,25,3,0
+ FILEVERSION 2,3,0,0
  PRODUCTVERSION 1,0,0,1
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
@@ -453,7 +453,7 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Nullsoft, Inc."
             VALUE "FileDescription", "Winamp Visualization Plug-in"
-            VALUE "FileVersion", "2, 25, 3, 0"
+            VALUE "FileVersion", "2, 3, 0, 0"
             VALUE "InternalName", "Nullsoft Milkdrop v2"
             VALUE "LegalCopyright", "Copyright © 2001-2013 Nullsoft, Inc."
             VALUE "OriginalFilename", "vis_milk2.dll"
