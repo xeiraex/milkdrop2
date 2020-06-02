@@ -145,6 +145,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../Winamp/wa_ipc.h"
 #include "../nu/AutoCharFn.h"
 #include <mmsystem.h>
+#include <WindowsX.h>
 #pragma comment(lib,"winmm.lib")    // for timeGetTime
 
 // STATE VALUES & VERTEX FORMATS FOR HELP SCREEN TEXTURE:
@@ -2652,8 +2653,8 @@ LRESULT CPluginShell::PluginShellWindowProc(HWND hWnd, unsigned uMsg, WPARAM wPa
 	case WM_MOUSEMOVE:
 		if (m_screenmode==DESKTOP && (m_desktop_dragging==1 || m_desktop_box==1))
 		{
-			m_desktop_drag_curpos.x = LOWORD(lParam);
-			m_desktop_drag_curpos.y = HIWORD(lParam);
+			m_desktop_drag_curpos.x = GET_X_LPARAM(lParam);
+			m_desktop_drag_curpos.y = GET_Y_LPARAM(lParam);
 			if (m_desktop_box==1)
 			{
 				// update selection based on box coords
@@ -2694,8 +2695,8 @@ LRESULT CPluginShell::PluginShellWindowProc(HWND hWnd, unsigned uMsg, WPARAM wPa
 				m_desktop_dragging = 0;
 
 				// move selected item(s) to new cursor position
-				int dx = LOWORD(lParam) - m_desktop_drag_startpos.x;
-				int dy = HIWORD(lParam) - m_desktop_drag_startpos.y;
+				int dx = GET_X_LPARAM(lParam) - m_desktop_drag_startpos.x;
+				int dy = GET_Y_LPARAM(lParam) - m_desktop_drag_startpos.y;
 
 				if (dx!=0 || dy!=0)
 				{
@@ -2762,8 +2763,8 @@ LRESULT CPluginShell::PluginShellWindowProc(HWND hWnd, unsigned uMsg, WPARAM wPa
 		else
 		{
 			POINT pt;
-			pt.x = LOWORD(lParam);
-			pt.y = HIWORD(lParam);
+			pt.x = GET_X_LPARAM(lParam);
+			pt.y = GET_Y_LPARAM(lParam);
 
 			int done = 0;
 
@@ -2796,10 +2797,10 @@ LRESULT CPluginShell::PluginShellWindowProc(HWND hWnd, unsigned uMsg, WPARAM wPa
 						case WM_LBUTTONDOWN:
 							m_desktop_dragging = 1;
 							memcpy(m_desktop_drag_pidl, p->pidl, sizeof(m_desktop_drag_pidl));
-							m_desktop_drag_startpos.x = LOWORD(lParam);
-							m_desktop_drag_startpos.y = HIWORD(lParam);
-							m_desktop_drag_curpos.x = LOWORD(lParam);
-							m_desktop_drag_curpos.y = HIWORD(lParam);
+							m_desktop_drag_startpos.x = GET_X_LPARAM(lParam);
+							m_desktop_drag_startpos.y = GET_Y_LPARAM(lParam);
+							m_desktop_drag_curpos.x = GET_X_LPARAM(lParam);
+							m_desktop_drag_curpos.y = GET_Y_LPARAM(lParam);
 							if (!(wParam & MK_CONTROL)) // if CTRL not held down
 							{
 								if (!p->selected)
@@ -2835,23 +2836,16 @@ LRESULT CPluginShell::PluginShellWindowProc(HWND hWnd, unsigned uMsg, WPARAM wPa
 				{
 					// note: can't use GetMenu and TrackPopupMenu here because the hwnd param to TrackPopupMenu must belong to current application.
 
-					// (before sending coords to desktop window, xform them into its client coords:)
-					POINT pt;
-					pt.x = LOWORD(lParam);
-					pt.y = HIWORD(lParam);
-					ScreenToClient(m_hWndDesktopListView, &pt);
-					lParam = MAKELPARAM(pt.x + m_lpDX->m_monitor_rect.left, pt.y + m_lpDX->m_monitor_rect.top);
-
 					PostMessage(m_hWndDesktopListView, uMsg, wParam, lParam);
 					//PostMessage(m_hWndDesktopListView, WM_CONTEXTMENU, (WPARAM)m_hWndDesktopListView, lParam);
 				}
 				else if (uMsg==WM_LBUTTONDOWN)
 				{
 					m_desktop_box = 1;
-					m_desktop_drag_startpos.x = LOWORD(lParam);
-					m_desktop_drag_startpos.y = HIWORD(lParam);
-					m_desktop_drag_curpos.x = LOWORD(lParam);
-					m_desktop_drag_curpos.y = HIWORD(lParam);
+					m_desktop_drag_startpos.x = GET_X_LPARAM(lParam);
+					m_desktop_drag_startpos.y = GET_Y_LPARAM(lParam);
+					m_desktop_drag_curpos.x = GET_X_LPARAM(lParam);
+					m_desktop_drag_curpos.y = GET_Y_LPARAM(lParam);
 				}
 			}
 
@@ -2925,7 +2919,7 @@ LRESULT CPluginShell::PluginShellWindowProc(HWND hWnd, unsigned uMsg, WPARAM wPa
 		}
 		else if (m_screenmode == WINDOWED)    // context menus only allowed in ~windowed modes
 		{
-			TrackPopupMenuEx(m_context_menu, TPM_VERTICAL, LOWORD(lParam), HIWORD(lParam), hWnd, NULL);
+			TrackPopupMenuEx(m_context_menu, TPM_VERTICAL, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), hWnd, NULL);
 			return 0;
 		}
 		break;
