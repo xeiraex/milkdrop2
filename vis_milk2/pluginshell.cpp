@@ -1635,7 +1635,7 @@ void CPluginShell::PushWindowToJustBeforeDesktop(HWND h)
 	if (hWndBottom != h)
 	{
 		m_force_accept_WM_WINDOWPOSCHANGING = 1;
-		SetWindowPos(h, HWND_BOTTOM, 0,0,0,0, SWP_NOMOVE|SWP_NOSIZE);
+		SetWindowPos(h, HWND_BOTTOM, 0,0,0,0, SWP_NOMOVE|SWP_NOSIZE|SWP_NOACTIVATE);
 		m_force_accept_WM_WINDOWPOSCHANGING = 0;
 	}
 
