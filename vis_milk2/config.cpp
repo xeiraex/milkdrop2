@@ -929,10 +929,10 @@ INT_PTR CALLBACK CPluginShell::TabCtrlProc(HWND hwnd,UINT msg,WPARAM wParam,LPAR
 		IDC_BRIGHT_SLIDER,
 		IDC_HARDCUT_LOUDNESS,
 	};
-	if (FALSE != WASABI_API_APP->DirectMouseWheel_ProcessDialogMessage(hwnd, msg, wParam, lParam, controls, ARRAYSIZE(controls)))
-	{
-		return TRUE;
-	}
+	//if (FALSE != WASABI_API_APP->DirectMouseWheel_ProcessDialogMessage(hwnd, msg, wParam, lParam, controls, ARRAYSIZE(controls)))
+	//{
+	//	return TRUE;
+	//}
 
     return FALSE;
 }
