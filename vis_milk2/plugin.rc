@@ -93,8 +93,6 @@ EXSTYLE WS_EX_CONTROLPARENT
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     GROUPBOX        "",IDC_STATIC,0,0,319,239
-    RTEXT           "Display Adapter:",IDC_DMS_ADAPTER_CAPTION,68,12,53,9
-    COMBOBOX        IDC_ADAPTER_DMS,126,9,185,191,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     CTEXT           "\rDESKTOP MODE\rsettings",IDC_DMS_LABEL,3,17,60,38
     RTEXT           "Max Framerate:",IDC_DMS_MAXFPS_CAPTION,63,28,58,9
     COMBOBOX        IDC_DMS_MAXFPS,126,25,81,106,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
@@ -1251,9 +1249,6 @@ BEGIN
     IDS_WINDOWED_ADPATER    "Help on windowed-mode display adapter selection"
     IDS_WINDOWED_ADPATER_HELP 
                             "This lets you select which display adapter (video card) you'd like to\nrun the plug-in on, when it runs in a window.  If you only have one video\ncard and monitor in your system, you will only have one choice here; but\nif you have multiple video cards, or a multi-head video card (one card\nthat drives multiple monitors), there should be two or more choices here.\n\nThe default window position will be somewhere on the monitor for the\ndisplay adapter you choose here.  You can drag the window to a different\nmonitor, but it is likely to be very slow, because the pixels will have\nto be copied, via Windows, from one display to the next, each frame.\n\nSo, for best performance in windowed mode, be sure to select the monitor\nyou want it to run on here, in advance, and avoid dragging the window to\nanother monitor at runtime."
-    IDS_DESKTOP_ADAPTER     "Help on desktop-mode display adapter selection"
-    IDS_DESKTOP_ADAPTER_HELP 
-                            "This lets you select which display adapter (video card & monitor) you'd like to\nrun the plug-in on, when it runs in desktop mode, replacing your windows wallpaper.\nIf you only have one video card and monitor in your system, you will only have\none choice here; but if you have multiple video cards, or a multi-head video card\n(one card that drives multiple monitors), there should be two or more choices here."
     IDS_HELP_ON_X_CHECKBOX  "Help on '%s' checkbox"
     IDS_HELP_ON_X_CHECKBOX_HELP 
                             "When a new frame of animation is ready for display, the plug-in\nhas a choice of whether or not to synchronize the new frame to the\nmonitor's next vertical scan.\n\nIf there is no synchronization and the new frame is shown immediately,\nthen the update might occure in 'mid-scan', so for that 1/60th of a second,\nyou'll see the old frame toward the top of the monitor, and the new frame\ntoward the bottom, with a sharp line ('tear') somewhere in between.  This\nis especially visible when solid objects on the screen are changing or\nmoving rapidly, from frame to frame.\n\nHowever, if the plug-in waits until the vertical scan is complete to update\nthe image, then at the start of the next vertical scan, the entire image\nwill be ready and will (hopefully) be presented without any tearing.\n\nAlthough page tearing will often cause visible artifacts, it will allow\nthe plug-in to run at its maximum possible framerate.  Generally, though,\npage tearing is considered a bad thing, to be avoided when possible.\n\nNote that this synchronization (done by DirectX and your video driver)\nis usually approximate when running in windowed (or fake fullscreen) modes;\nthus, page tearing is often minimized but can't always be completely eliminated.\n\nNote that multisampling is usually only available when page tearing is\nallowed, due to limitations of the DirectX 8 API.  The one exception is\n'true' fullscreen mode; there, you can disable page tearing and still use\nmultisampling.  (But not in fake fullscreen, windowed, or desktop modes.)"

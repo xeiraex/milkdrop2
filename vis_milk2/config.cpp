@@ -55,7 +55,6 @@ HMODULE     g_hmod_d3d9;
 HMODULE     g_hmod_d3dx9;
 D3DADAPTER_IDENTIFIER9 g_disp_adapter_w[MAX_DISPLAY_ADAPTERS];   // NOTE: indices into this list might not equal the ordinal adapter indices!
 D3DADAPTER_IDENTIFIER9 g_disp_adapter_fs[MAX_DISPLAY_ADAPTERS];  // NOTE: indices into this list might not equal the ordinal adapter indices!
-D3DADAPTER_IDENTIFIER9 g_disp_adapter_dm[MAX_DISPLAY_ADAPTERS];  // NOTE: indices into this list might not equal the ordinal adapter indices!
 D3DDISPLAYMODE         g_disp_mode[MAX_DISPLAY_MODES];
 HWND        g_config_hwnd;
 HWND        g_subwnd;
@@ -178,11 +177,6 @@ void CPluginShell::UpdateAdapters(int screenmode)
         pGUID = &m_adapter_guid_fake_fullscreen;
         strcpy(deviceName, m_adapter_devicename_fake_fullscreen);
         break;*/
-    case DESKTOP: 
-        ctrl = GetDlgItem(g_subwnd, IDC_ADAPTER_DMS);
-        pGUID = &m_adapter_guid_desktop;
-        StringCbCopy(deviceName, sizeof(deviceName), m_adapter_devicename_desktop);
-        break;
     }
 
     // clear the combo box
@@ -204,9 +198,6 @@ void CPluginShell::UpdateAdapters(int screenmode)
         /*case FAKE_FULLSCREEN: 
             global_adapter_list = g_disp_adapter_w;     // [sic]
             break;*/
-        case DESKTOP: 
-            global_adapter_list = g_disp_adapter_dm;
-            break;
         }
 
         int nAdapters = g_lpDX->GetAdapterCount();
@@ -587,8 +578,7 @@ void CPluginShell::UpdateDispModeMultiSampling(int screenmode)
         // figure out current format:
         D3DFORMAT format = D3DFMT_UNKNOWN;
         if ((screenmode == WINDOWED) || 
-            (screenmode == FULLSCREEN && m_fake_fullscreen_mode) || 
-            (screenmode == DESKTOP))
+            (screenmode == FULLSCREEN && m_fake_fullscreen_mode))
         {
             // ** get it from the current display mode 
             //    of the currently-selected [windowed/fake fullscreen] mode adapter **
@@ -727,7 +717,6 @@ int CPluginShell::GetCurrentlySelectedAdapter(int screenmode)
     case FULLSCREEN:      ctrl = GetDlgItem(g_subwnd, IDC_ADAPTER_FS ); break;
     case WINDOWED:        ctrl = GetDlgItem(g_subwnd, IDC_ADAPTER_W  ); break;
     //case FAKE_FULLSCREEN: ctrl = GetDlgItem(g_subwnd, IDC_ADAPTER_FFS); break;
-    case DESKTOP:         ctrl = GetDlgItem(g_subwnd, IDC_ADAPTER_DMS); break;
     }
 
     int n = SendMessage(ctrl, CB_GETCURSEL, 0, 0);
@@ -833,7 +822,6 @@ void CPluginShell::SaveAdapter(int screenmode)
     case FULLSCREEN:      ctrl = GetDlgItem(g_subwnd, IDC_ADAPTER_FS);  break;
     case WINDOWED:        ctrl = GetDlgItem(g_subwnd, IDC_ADAPTER_W);   break;
     //case FAKE_FULLSCREEN: ctrl = GetDlgItem(g_subwnd, IDC_ADAPTER_FFS); break;
-    case DESKTOP:         ctrl = GetDlgItem(g_subwnd, IDC_ADAPTER_DMS); break;
     }
 
     // save windowed/fullscreen adapter
@@ -856,11 +844,6 @@ void CPluginShell::SaveAdapter(int screenmode)
             //m_adapter_guid_fake_fullscreen = g_disp_adapter_w[n].DeviceIdentifier;  
             //strcpy(m_adapter_desc_fake_fullscreen, g_disp_adapter_fs[n].Description);
             //break; // [sic]
-        case DESKTOP:         
-            m_adapter_guid_desktop         = g_disp_adapter_dm[n].DeviceIdentifier;  
-            StringCbCopy(m_adapter_devicename_desktop, sizeof(m_adapter_devicename_desktop), g_disp_adapter_fs[n].DeviceName);
-            //strcpy(m_adapter_desc_desktop, g_disp_adapter_fs[n].Description);
-            break; 
         }
     }
 }
@@ -982,14 +965,12 @@ BOOL CPluginShell::PluginShellConfigTab1Proc(HWND hwnd,UINT msg,WPARAM wParam,LP
             UpdateAdapters(1);    // windowed
               //-skips UpdateFSAdapterDispModes() (not necessary for windowed mode)
               //-then calls UpdateDispModeMultiSampling(1).
-            UpdateAdapters(3);    // desktop
-              //-skips UpdateFSAdapterDispModes() (not necessary for fake fullscreen mode)
-              //-then calls UpdateDispModeMultiSampling(2).
             UpdateMaxFps(0);
             UpdateMaxFps(1);
             UpdateMaxFps(3); // desktop
 
             // disable a few things if fake fullscreen mode enabled:
+            EnableWindow(GetDlgItem(hwnd, IDC_ADAPTER_FS), !m_fake_fullscreen_mode);
             EnableWindow(GetDlgItem(hwnd, IDC_DISP_MODE), !m_fake_fullscreen_mode);
             //EnableWindow(GetDlgItem(hwnd, IDC_FSMS), !m_fake_fullscreen_mode);
         }        
@@ -1016,7 +997,6 @@ BOOL CPluginShell::PluginShellConfigTab1Proc(HWND hwnd,UINT msg,WPARAM wParam,LP
             // read all 3 adapters
             SaveAdapter(0);
             SaveAdapter(1);
-            SaveAdapter(3);
 
             // read fullscreen display mode
             SaveDisplayMode();
@@ -1067,11 +1047,6 @@ BOOL CPluginShell::PluginShellConfigTab1Proc(HWND hwnd,UINT msg,WPARAM wParam,LP
                 break;
                 */
 
-            case IDC_ADAPTER_DMS:
-                SaveMultiSamp(DESKTOP);
-                UpdateDispModeMultiSampling(DESKTOP);
-                break;
-                
             case IDC_DISP_MODE:
                 SaveMultiSamp(FULLSCREEN);
                 UpdateDispModeMultiSampling(FULLSCREEN);
@@ -1116,6 +1091,7 @@ BOOL CPluginShell::PluginShellConfigTab1Proc(HWND hwnd,UINT msg,WPARAM wParam,LP
             case IDC_CB_FAKE:
                 SaveMultiSamp(FULLSCREEN);
                 m_fake_fullscreen_mode = DlgItemIsChecked(hwnd, IDC_CB_FAKE );
+                EnableWindow(GetDlgItem(hwnd, IDC_ADAPTER_FS), !m_fake_fullscreen_mode);
                 EnableWindow(GetDlgItem(hwnd, IDC_DISP_MODE), !m_fake_fullscreen_mode);
                 CheckDlgButton(hwnd, IDC_CB_FSPT, m_fake_fullscreen_mode ? m_allow_page_tearing_fs : 0);
                 EnableWindow(GetDlgItem(hwnd, IDC_CB_FSPT), m_fake_fullscreen_mode ? 1 : 0);
@@ -1191,12 +1167,6 @@ BOOL CPluginShell::PluginShellConfigTab1Proc(HWND hwnd,UINT msg,WPARAM wParam,LP
             case IDC_W_ADAPTER_CAPTION:
 				WASABI_API_LNGSTRINGW_BUF(IDS_WINDOWED_ADPATER, title, 1024);
 				WASABI_API_LNGSTRINGW_BUF(IDS_WINDOWED_ADPATER_HELP, buf, 2048);
-                break;
-
-            case IDC_ADAPTER_DMS:
-            case IDC_DMS_ADAPTER_CAPTION:
-				WASABI_API_LNGSTRINGW_BUF(IDS_DESKTOP_ADAPTER, title, 1024);
-				WASABI_API_LNGSTRINGW_BUF(IDS_DESKTOP_ADAPTER_HELP, buf, 2048);
                 break;
 
             case IDC_DISP_MODE:

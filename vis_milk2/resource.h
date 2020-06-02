@@ -338,8 +338,6 @@
 #define IDS_FULLSCREEN_ADAPTER_HELP     351
 #define IDS_WINDOWED_ADPATER            352
 #define IDS_WINDOWED_ADPATER_HELP       353
-#define IDS_DESKTOP_ADAPTER             354
-#define IDS_DESKTOP_ADAPTER_HELP        355
 #define IDS_HELP_ON_X_CHECKBOX          356
 #define IDS_HELP_ON_X_CHECKBOX_HELP     357
 #define IDS_FORCE_INTO_FS_MODE_HELP     358
@@ -633,7 +631,6 @@
 #define IDC_ADAPTER_TEXT                1008
 #define IDC_ADAPTER_W_CAPTION           1008
 #define IDC_ADAPTER_FFS                 1008
-#define IDC_ADAPTER_DMS                 1008
 #define IDC_DISP_MODE_TEXT              1009
 #define IDC_DISP_MODE_CAPTION           1009
 #define IDC_ADAPTER_FS                  1010
@@ -651,7 +648,6 @@
 #define IDC_CB_3B                       1014
 #define IDC_ADD_STUFF_HERE              1014
 #define IDC_FFS_ADAPTER_CAPTION         1014
-#define IDC_DMS_ADAPTER_CAPTION         1014
 #define IDC_CB_DEBUGOUTPUT              1014
 #define IDC_FONT3b                      1014
 #define IDC_FONT3                       1014

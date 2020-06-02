@@ -175,10 +175,8 @@ private:
     D3DMULTISAMPLE_TYPE m_multisample_desktop;
     D3DMULTISAMPLE_TYPE m_multisample_windowed;
     GUID m_adapter_guid_fullscreen;
-    GUID m_adapter_guid_desktop;
     GUID m_adapter_guid_windowed;
     char m_adapter_devicename_fullscreen[256];  // these are also necessary sometimes,
-    char m_adapter_devicename_desktop[256];     //  for example, when a laptop (single adapter)
     char m_adapter_devicename_windowed[256];    //  drives two displays!  DeviceName will be \\.\Display1 and \\.\Display2 or something.
 
     // PRIVATE RUNTIME SETTINGS

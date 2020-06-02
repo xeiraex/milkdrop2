@@ -860,9 +860,7 @@ void CPluginShell::StuffParams(DXCONTEXT_PARAMS *pParams)
 		break;
 	case DESKTOP:
 		pParams->allow_page_tearing = m_allow_page_tearing_dm;
-		pParams->adapter_guid       = m_adapter_guid_desktop;
 		pParams->multisamp          = m_multisample_desktop;
-		strcpy(pParams->adapter_devicename, m_adapter_devicename_desktop);
 		break;
 	}
 	pParams->parent_window = (m_screenmode==DESKTOP) ? m_hWndDesktopListView : NULL;
@@ -1192,11 +1190,9 @@ int CPluginShell::PluginPreInitialize(HWND hWinampWnd, HINSTANCE hWinampInstance
 	m_multisample_desktop = D3DMULTISAMPLE_NONE;
 	m_multisample_windowed = D3DMULTISAMPLE_NONE;
 	ZeroMemory(&m_adapter_guid_fullscreen, sizeof(GUID));
-	ZeroMemory(&m_adapter_guid_desktop , sizeof(GUID));
 	ZeroMemory(&m_adapter_guid_windowed , sizeof(GUID));
 	m_adapter_devicename_windowed[0]   = 0;
 	m_adapter_devicename_fullscreen[0] = 0;
-	m_adapter_devicename_desktop[0]    = 0;
 
 
 	// PRIVATE RUNTIME SETTINGS
@@ -1362,17 +1358,13 @@ void CPluginShell::ReadConfig()
 	m_multisample_windowed        = (D3DMULTISAMPLE_TYPE)GetPrivateProfileIntW(L"settings",L"multisample_windowed"  ,m_multisample_windowed  ,m_szConfigIniFile);
 
 	//GUID m_adapter_guid_fullscreen
-	//GUID m_adapter_guid_desktop
 	//GUID m_adapter_guid_windowed
 	char str[256];
 	GetPrivateProfileString("settings","adapter_guid_fullscreen","",str,sizeof(str)-1,m_szConfigIniFileA);
 	TextToGuid(str, &m_adapter_guid_fullscreen);
-	GetPrivateProfileString("settings","adapter_guid_desktop","",str,sizeof(str)-1,m_szConfigIniFileA);
-	TextToGuid(str, &m_adapter_guid_desktop);
 	GetPrivateProfileString("settings","adapter_guid_windowed","",str,sizeof(str)-1,m_szConfigIniFileA);
 	TextToGuid(str, &m_adapter_guid_windowed);
 	GetPrivateProfileString("settings","adapter_devicename_fullscreen","",m_adapter_devicename_fullscreen,sizeof(m_adapter_devicename_fullscreen)-1,m_szConfigIniFileA);
-	GetPrivateProfileString("settings","adapter_devicename_desktop",   "",m_adapter_devicename_desktop   ,sizeof(m_adapter_devicename_desktop)-1,m_szConfigIniFileA);
 	GetPrivateProfileString("settings","adapter_devicename_windowed",  "",m_adapter_devicename_windowed  ,sizeof(m_adapter_devicename_windowed)-1,m_szConfigIniFileA);
 
 	// FONTS
@@ -1445,17 +1437,13 @@ void CPluginShell::WriteConfig()
 	WritePrivateProfileIntW((int)m_multisample_windowed  ,L"multisample_windowed"  ,m_szConfigIniFile,L"settings");
 
 	//GUID m_adapter_guid_fullscreen
-	//GUID m_adapter_guid_desktop
 	//GUID m_adapter_guid_windowed
 	char str[256];
 	GuidToText(&m_adapter_guid_fullscreen, str, sizeof(str));
 	WritePrivateProfileString("settings","adapter_guid_fullscreen",str,m_szConfigIniFileA);
-	GuidToText(&m_adapter_guid_desktop, str, sizeof(str));
-	WritePrivateProfileString("settings","adapter_guid_desktop",str,m_szConfigIniFileA);
 	GuidToText(&m_adapter_guid_windowed,   str, sizeof(str));
 	WritePrivateProfileString("settings","adapter_guid_windowed"  ,str,m_szConfigIniFileA);
 	WritePrivateProfileString("settings","adapter_devicename_fullscreen",m_adapter_devicename_fullscreen,m_szConfigIniFileA);
-	WritePrivateProfileString("settings","adapter_devicename_desktop"   ,m_adapter_devicename_desktop   ,m_szConfigIniFileA);
 	WritePrivateProfileString("settings","adapter_devicename_windowed"  ,m_adapter_devicename_windowed  ,m_szConfigIniFileA);
 
 	// FONTS
