@@ -1331,17 +1331,25 @@ BOOL CPluginShell::PluginShellConfigDialogProc(HWND hwnd,UINT msg,WPARAM wParam,
             // enable the 'view website' button only if plugin author has #defined a URL (in defines.h):
             #ifndef PLUGIN_WEB_URL
                 ShowWindow(GetDlgItem(hwnd, ID_WEB), SW_HIDE);
+                ShowWindow(GetDlgItem(hwnd, ID_WEB), SW_HIDE);
             #else
                 if (wcslen(PLUGIN_WEB_URL)==0)
+                {
                     ShowWindow(GetDlgItem(hwnd, ID_WEB), SW_HIDE);
+                    ShowWindow(GetDlgItem(hwnd, ID_WEB), SW_HIDE);
+                }
             #endif
 
             // enable the 'view docs' button only if plugin author has #defined a filename (in defines.h):
             #ifndef DOCFILE
                 ShowWindow(GetDlgItem(hwnd, ID_DOCS), SW_HIDE);
+                ShowWindow(GetDlgItem(hwnd, ID_DOCS), SW_HIDE);
             #else
                 if (wcslen(DOCFILE)==0)
+                {
                     ShowWindow(GetDlgItem(hwnd, ID_DOCS), SW_HIDE);
+                    ShowWindow(GetDlgItem(hwnd, ID_DOCS), SW_HIDE);
+                }
             #endif
 
             // set contents of IDC_SZ_ABOUT

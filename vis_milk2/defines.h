@@ -78,7 +78,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 // ***Note that the button will be invisible (on the config panel) 
 // at runtime if this string is empty.***
-#define DOCFILE         SUBDIR L"docs\\milkdrop.html"     // set this to something like "myplugin.html"    
+#define DOCFILE         L""     // set this to something like "myplugin.html"
 
 // PLUGIN_WEB_URL is the web address of the homepage for your plugin.
 // It should be a well-formed URL (http://...).  When a user clicks
@@ -87,7 +87,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 // ***Note that the button will be invisible (on the config panel) 
 // at runtime if this string is empty.***
-#define PLUGIN_WEB_URL  L"http://www.nullsoft.com/free/milkdrop/"   // set this to something like "http://www.myplugin.com/"    
+#define PLUGIN_WEB_URL  L""   // set this to something like "http://www.myplugin.com/"
 
 // The following two strings - AUTHOR_NAME and COPYRIGHT - will be used 
 // in a little box in the config panel, to identify the author & copyright 
