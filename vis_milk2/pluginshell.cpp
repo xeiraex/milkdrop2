@@ -904,6 +904,14 @@ void CPluginShell::ToggleDesktop()
 	SetForegroundWindow(m_lpDX->GetHwnd());
 	SetActiveWindow(m_lpDX->GetHwnd());
 	SetFocus(m_lpDX->GetHwnd());
+	if (m_screenmode == DESKTOP)
+	{
+		SetThreadExecutionState(ES_CONTINUOUS | ES_DISPLAY_REQUIRED);
+	}
+	else
+	{
+		SetThreadExecutionState(ES_CONTINUOUS);
+	}
 }
 
 #define IPC_IS_PLAYING_VIDEO 501 // from wa_ipc.h
@@ -954,10 +962,12 @@ void CPluginShell::ToggleFullScreen()
 	if (m_screenmode == FULLSCREEN || m_screenmode == FAKE_FULLSCREEN)
 	{
 		while (ShowCursor(false) >= 0);
+		SetThreadExecutionState(ES_CONTINUOUS | ES_DISPLAY_REQUIRED);
 	}
 	else
 	{
 		ShowCursor(true);
+		SetThreadExecutionState(ES_CONTINUOUS);
 	}
 }
 
@@ -1330,6 +1340,7 @@ void CPluginShell::PluginQuit()
 	CleanUpNondx9Stuff();
 	CleanUpDirectX();
 
+	SetThreadExecutionState(ES_CONTINUOUS);
 	SetFocus(m_hWndWinamp);
 	SetActiveWindow(m_hWndWinamp);
 	SetForegroundWindow(m_hWndWinamp);
