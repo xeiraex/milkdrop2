@@ -755,36 +755,15 @@ BOOL DXContext::Internal_Init(DXCONTEXT_PARAMS *pParams, BOOL bFirstInit)
 		if (m_current_mode.screenmode==DESKTOP ||
 		    m_current_mode.screenmode==FAKE_FULLSCREEN)
 		{
-			int x = m_monitor_rect.right - m_monitor_rect.left;
-			int y = m_monitor_rect.bottom - m_monitor_rect.top;
+            int x = GetSystemMetrics(SM_XVIRTUALSCREEN);
+            int y = GetSystemMetrics(SM_YVIRTUALSCREEN);
+            int w = GetSystemMetrics(SM_CXVIRTUALSCREEN);
+            int h = GetSystemMetrics(SM_CYVIRTUALSCREEN);
 
-			if (x >= y*2)
-			{
-				// (pseudo-multimon modes like 2048x768)
-				int mid = (m_monitor_rect.left + m_monitor_rect.right)/2;
-				if (m_current_mode.m_dualhead_horz==1) // show on left side
-					m_monitor_rect.right = mid;
-				else if (m_current_mode.m_dualhead_horz==2) // show on right side
-					m_monitor_rect.left = mid;
-			}
-			else if (y > x*4/3)
-			{
-				// (pseudo-multimon modes like 1024x1536)
-				int mid = (m_monitor_rect.top + m_monitor_rect.bottom)/2;
-				if (m_current_mode.m_dualhead_vert==1) // show on top half
-					m_monitor_rect.bottom = mid;
-				else if (m_current_mode.m_dualhead_vert==2) // show on bottom half
-					m_monitor_rect.top = mid;
-			}
-
-			// recompute width & height (into x,y):
-			x = m_monitor_rect.right - m_monitor_rect.left;
-			y = m_monitor_rect.bottom - m_monitor_rect.top;
-
-			m_client_width  = x;
-			m_client_height = y;
-			m_window_width  = x;
-			m_window_height = y;
+            m_client_width  = w;
+            m_client_height = h;
+            m_window_width  = w;
+            m_window_height = h;
 
 			if (m_current_mode.screenmode == DESKTOP)
 			{
@@ -792,54 +771,7 @@ BOOL DXContext::Internal_Init(DXCONTEXT_PARAMS *pParams, BOOL bFirstInit)
 				// only display it once the desktop is all nice & ready.
 				// see CPluginShell::DrawAndDisplay().
 
-				RECT r = m_monitor_rect;
-
-				// if possible, shrink the desktop window so it doesn't cover the taskbar.
-				HWND hTaskbar = FindWindow("Shell_TrayWnd", "");
-				if (hTaskbar)
-				{
-					RECT taskbar;
-					GetWindowRect(hTaskbar, &taskbar);
-					int tbw = taskbar.right - taskbar.left;
-					int tbh = taskbar.bottom-taskbar.top;
-
-					if (taskbar.bottom == m_monitor_rect.bottom &&
-					    taskbar.left == m_monitor_rect.left &&
-					    taskbar.right == m_monitor_rect.right)
-					{
-						r.bottom -= tbh;
-					}
-					else if (taskbar.top == m_monitor_rect.top &&
-					         taskbar.left == m_monitor_rect.left &&
-					         taskbar.right == m_monitor_rect.right)
-					{
-						r.top += tbh;
-					}
-					else if (taskbar.left == m_monitor_rect.left &&
-					         taskbar.top == m_monitor_rect.top &&
-					         taskbar.bottom == m_monitor_rect.bottom)
-					{
-						r.left += tbw;
-					}
-					else if (taskbar.right == m_monitor_rect.right &&
-					         taskbar.top == m_monitor_rect.top &&
-					         taskbar.bottom == m_monitor_rect.bottom)
-					{
-						r.right -= tbw;
-					}
-
-					m_client_width  = r.right - r.left;
-					m_client_height = r.bottom - r.top;
-					m_REAL_client_width = m_client_width;
-					m_REAL_client_height = m_client_height;
-					m_window_width  = m_client_width;
-					m_window_height = m_client_height;
-
-					//...ok, but text is squished - some w/h is not right...
-
-				}
-
-				SetWindowPos(m_hwnd,HWND_BOTTOM,r.left,r.top,r.right-r.left,r.bottom-r.top,SWP_HIDEWINDOW);
+                SetWindowPos(m_hwnd, HWND_BOTTOM, x, y, w, h, SWP_HIDEWINDOW);
 			}
 			else // FAKE_FULLSCREEN
 			{
@@ -857,7 +789,7 @@ BOOL DXContext::Internal_Init(DXCONTEXT_PARAMS *pParams, BOOL bFirstInit)
 					//      (see WM_SETCURSOR handler)
 
 					m_fake_fs_covers_all = 1;
-					//SetWindowPos(m_hwnd,HWND_TOPMOST,m_monitor_rect.left,m_monitor_rect.top,m_window_width,m_window_height,SWP_SHOWWINDOW);
+                    SetWindowPos(m_hwnd, HWND_TOPMOST, x, y, w, h, SWP_SHOWWINDOW);
 				}
 				else
 				{
@@ -877,10 +809,8 @@ BOOL DXContext::Internal_Init(DXCONTEXT_PARAMS *pParams, BOOL bFirstInit)
 					//   since there are other monitors available)
 
 					m_fake_fs_covers_all = 0;
-					//SetWindowPos(m_hwnd,HWND_TOP,m_monitor_rect.left,m_monitor_rect.top,m_window_width,m_window_height,SWP_SHOWWINDOW);
-				}
-
-				SetWindowPos(m_hwnd,HWND_TOPMOST,m_monitor_rect.left,m_monitor_rect.top,m_window_width,m_window_height,SWP_SHOWWINDOW);
+                    SetWindowPos(m_hwnd, HWND_TOP, x, y, w, h, SWP_SHOWWINDOW);
+                }
 			}
 		}
 		else if (m_current_mode.screenmode == FULLSCREEN)
