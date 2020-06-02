@@ -169,8 +169,6 @@
   <ItemGroup>
     <None Include="plugin_icon.ico" />
     <None Include="DOCUMENTATION.TXT" />
-    <None Include="milkdrop.nsi" />
-    <None Include="temp.ico" />
     <None Include="text1.bin" />
   </ItemGroup>
   <ItemGroup>
