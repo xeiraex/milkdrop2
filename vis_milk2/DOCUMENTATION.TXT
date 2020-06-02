@@ -63,10 +63,7 @@ Features
         switch between all 3 on the fly.)
     -SUPERIOR MULTIMON SUPPORT.  Your plugin will work on systems
         with multiple display adapters, as well as systems with
-        a multi-head card.  For multi-head cards that treat all
-        screens as one giant display (ie. resolutions like 2048x768 
-        or 1024x1536), your users can even use 'fake' fullscreen mode 
-        to run your plugin fullscreen on just one monitor!
+        a multi-head card.
     -SOUND ANALYSIS: the framework provides your plugin with a 
         super-high-quality FFT (fast fourier transform) for doing your 
         own frequency analysis, or for drawing spectra.  Framework also 
@@ -406,8 +403,6 @@ Using Data From the Base Class (CPluginShell)
     int          m_desktop_textlabel_boxes; // 0 or 1
     int          m_desktop_manual_icon_scoot; // 0 or 1
     int          m_desktop_555_fix;         // 0 = 555, 1 = 565, 2 = 888
-    int          m_dualhead_horz;           // 0 = both, 1 = left, 2 = right
-    int          m_dualhead_vert;           // 0 = both, 1 = top, 2 = bottom
     int          m_save_cpu;                // 0 or 1
     int          m_skin;                    // 0 or 1
     td_fontinfo  m_fontinfo[NUM_BASIC_FONTS + NUM_EXTRA_FONTS];
@@ -825,11 +820,6 @@ Version History
         because display mode resolution decreased, etc.) it will
         revert to the default window size & position.
     -Config Panel:
-        -For users with DualHead cards that run two monitors as one 
-            virtual display (e.g. 2048x768 or 1024x1536), you can now
-            specify which half of the screen you want Fake Fullscreen Mode
-            and Desktop Mode to occupy, or both.  See the 'DualHead'
-            button on the config panel.
         -Added an option to save cpu usage by using a more-tolerant
             framerate limitation algorithm - saves 0-20%.  Default: ON.
     -Fixed appearance of the help screen by adding +0.5-texel offset; 

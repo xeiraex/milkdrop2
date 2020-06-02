@@ -138,7 +138,6 @@ BEGIN
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,78,215,183,10
     CONTROL         "V&J MODE - show text, menus in a second window",IDC_CB_VJMODE,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,78,225,173,10
-    PUSHBUTTON      "Dual&Head",ID_DUALHEAD,262,200,50,15
     PUSHBUTTON      "&Select Fonts",ID_FONTS,262,217,50,15
 END
 
@@ -334,25 +333,6 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,147,88,50,13
 END
 
-IDD_DUALHEAD DIALOGEX 0, 0, 304, 164
-STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
-EXSTYLE WS_EX_NOPARENTNOTIFY
-CAPTION "Dualhead Options"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    LTEXT           "Typically, multimon (ie. multiple monitor) setups feature two separate video cards and two separate monitors; each resulting display has its own resolution, and the desktop spans across them in some fashion.",IDC_STATIC,4,4,296,26
-    LTEXT           "DualHead video cards, though, feature a single card that feeds two monitors.  Some of these cards treat the two monitors separately, but some of them treat them as halves of a single double-width (~2048x768) or double-height (~1024x1536) 'virtual screen'.",IDC_STATIC,4,34,296,26
-    GROUPBOX        "For Desktop and *Fake* Fullscreen modes:",IDC_STATIC,4,64,150,96
-    LTEXT           "When a single virtual display spans two real screens Horizontally:",IDC_STATIC,10,75,137,18
-    COMBOBOX        IDC_H_PICK,16,96,104,91,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "When a single virtual display spans two real screens Vertically:",IDC_STATIC,10,113,137,18
-    COMBOBOX        IDC_V_PICK,16,134,104,67,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "As a result, graphics applications can't go 'fullscreen' on just one monitor, because it's really only half of the 'screen', from Windows' point of view.",IDC_STATIC,159,64,141,32
-    LTEXT           "This plug-in, however, will let you get away with it, when you're in Desktop Mode or *Fake* Fullscreen Mode; it just needs to know which half of the display (left/right or top/bottom) you want to use -- or both.",IDC_STATIC,159,100,141,42
-    DEFPUSHBUTTON   "OK",IDOK,196,147,50,13
-    PUSHBUTTON      "Cancel",IDCANCEL,250,147,50,13
-END
-
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -384,14 +364,6 @@ BEGIN
         RIGHTMARGIN, 197
         TOPMARGIN, 4
         BOTTOMMARGIN, 101
-    END
-
-    IDD_DUALHEAD, DIALOG
-    BEGIN
-        LEFTMARGIN, 4
-        RIGHTMARGIN, 300
-        TOPMARGIN, 4
-        BOTTOMMARGIN, 160
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -575,10 +547,10 @@ BEGIN
                             "The fullscreen display mode selected from the config panel\nwas invalid, for some reason.  For now, the closest match\n(to the old selection) will be used.\n\nTo fix this, please return to the config panel and select a new\nfullscreen display mode.\n\nThe plug-in will now run using the best match..."
     IDS_CREATEWINDOW_FAILED "CreateWindow failed"
     IDS_TRYING_TO_ENTER_FS_MODE_WITH_MULTIPLE_DISPLAYS 
-                            "You are trying to enter fullscreen mode while running\nmultiple displays in a vertical or horizontal span,\nwithout using 'Fake Fullscreen Mode'.  As a result,\n--the image will be stretched over both displays.--\n\nIf you would prefer the plug-in to appear on only one display\n(and still be free to operate on the other display),\nplease return to the config panel, enable 'Fake Fullscreen\nMode', click the 'DualHead' button to configure your DualHead\nsetup, and then try again.\n\nHit OK to proceed, or Cancel to exit now."
+                            "You are trying to enter fullscreen mode while running\nmultiple displays in a vertical or horizontal span,\nwithout using 'Fake Fullscreen Mode'.  As a result,\n--the image will be stretched over both displays.--\n\nHit OK to proceed, or Cancel to exit now."
     IDS_TIP                 "Tip"
     IDS_TRYING_TO_ENTER_FS_MODE_WITH_MULTIPLE_DISPLAYS_2 
-                            "You are trying to enter fullscreen mode while running\nmultiple displays in a vertical or horizontal span,\nbut the display mode you are entering does not stretch\nover both displays.  As a result, --the image will only\nappear on one display, and the other display will be disabled.--\n\nThere are two alternatives:\n\n1. To make the fullscreen image appear on only ONE display\nAND still be free to operate on the other display,\nplease return to the config panel and enable 'Fake Fullscreen Mode',\nthen click 'DualHead' to select which screen you'd like the\nplug-in to occupy.  (--RECOMMENDED--)\n\n2. To make the fullscreen image stretch across BOTH displays,\nreturn to the config panel and select a display mode that\nspans both displays (such as 2048 x 768, or 1024 x 1536).\n\nHit OK to continue, or Cancel to exit now."
+                            "You are trying to enter fullscreen mode while running\nmultiple displays in a vertical or horizontal span,\nbut the display mode you are entering does not stretch\nover both displays.  As a result, --the image will only\nappear on one display, and the other display will be disabled.--\n\nTo make the fullscreen image stretch across BOTH displays,\nreturn to the config panel and select a display mode that\nspans both displays (such as 2048 x 768, or 1024 x 1536).\n\nHit OK to continue, or Cancel to exit now."
     IDS_UNABLE_TO_CREATE_DIRECTX_DEVICE 
                             "Unable to create a DirectX device.  (D3DERR_NOTAVAILABLE)\n\nThis could mean that you've chosen a combination of settings that is\nnot available on your video card.  Try resetting the plug-in to its\ndefault settings (via the config panel's 'Default' button), and then\ntry running the plug-in again.\n\nYou might also want to close all other applications, to make sure they're\nnot interfering.\n\nIf you have made any changes to your graphics subsystem since your\nlast reboot (such as updating video drivers, installing new software,\netc.), or have witnessed any strange behaviors, TRY REBOOTING first.\n\n"
     IDS_OLDER_DISPLAY_ADAPTER_CATENATION 
@@ -1262,14 +1234,13 @@ BEGIN
     IDS_X_FRAME_SEC         "%2d frames/sec"
     IDS_HELP_ON_X_BUTTON    "Help on '%s' button"
     IDS_FONTS_HELP          "Click this button to alter the fonts that are used to display text\nwhile the plug-in is running."
-    IDS_DUAL_HEAD_HELP      "Click this button for special options concerning DualHead video cards\nthat are capable of running in double-width or double-height display\nmodes.  DualHead cards that support this treat the two monitors as\none giant, double-width or double-height display.\n\nThis would usually mean that when going Fullscreen, the plug-in would be\nstretched over both monitors.  However, when you run the plug-in in\nDesktop Mode or in *Fake* Fullscreen Mode, you can get around this,\nand allow the plug-in to run on just one monitor, leaving you free\nto work on the other."
     IDS_MULTI_SAMPLING      "Help on Multisampling"
     IDS_MULTI_SAMPLING_HELP "This controls the level of full-scene anti-aliasing (blending)\nthat the display adapter uses.  Only newer video cards will\ntend to support this feature.  Anti-aliasing softens out the\n'jaggies' that you sometimes see at the pixel level, for example,\nat the silhouette of an object, or on a wireframe object.\n\nA level of '2X' would mean that 3D rendering/rasterization is done\ninternally *at double-resolution*, and then downsampled before final\ndisplay to the user.  A level of '3X' would mean that the rendering\nis done at triple-resolution, and so on.\n\nNote that, due to limitations of the DirectX 8 API, the use of multisampling\ngenerally requires that page tearing be allowed; the one exception is 'true'\nfullscreen mode, where you can have the best of both worlds: you can disable\npage tearing and enable multisampling at the same time."
     IDS_MAX_FRAMERATE       "Help on Max Framerate"
     IDS_MAX_FRAMERATE_HELP  "This controls the maximum # of times the image will be updated, per second.\nFramerate is also commonly called ""FPS"", or ""frames per second.""\n\nIf the plug-in is running too quickly for your taste, you can lower the\nmaximum framerate to slow it down.  You might also want to do this if\nthe plug-in is 'hogging the CPU' and slowing down other applications.\n\nTypically, a framerate of 30 looks good; 60 looks great.  The human eye\nhas a hard time processing more than 60 fps, though.\n\nNote that if the animation is rendering below the maximum framerate here,\nyour CPU will likely be in 100%% use, leaving your computer somewhat\nunresponsive.  If this is the case, try lowering the max. framerate\nuntil it takes effect, and then your computer should become more responsive.\n\nAlso keep in mind that it's a good idea to try and set the max. framerate\nto the current refresh rate of your monitor (e.g. 60 Hz, 72 Hz, etc.)\nor an integer factor of that number; for example, at a 72 Hz monitor\nrefresh rate, good max. framerates would be 2, 3, 4, 6, 8, 9, 12, 18,\n24, 36, or 72."
     IDS_FAKE_FULLSCREEN     "Help on 'fake' fullscreen mode"
     IDS_FAKE_FULLSCREEN_HELP 
-                            "When this option is enabled, the display mode is never changed by\nthe plug-in; instead, the plug-in 'fakes' fullscreen mode by simply\nthe plug-in; instead, the plug-in 'fakes' fullscreen mode by simply\nthe window on top.\n\nDUALHEAD: Fake fullscreen mode can be especially handy when you have a\ndualhead display adapter that drives two monitors, but really just treats\nthem as one giant display (e.g. **the display mode is something like 2048x768\nor 1024x1536**), where regular fullscreen mode will take over both monitors,\ncreating a very large, stretched image.  HOWEVER, if you use fake\nfullscreen mode, it can (if you want) take over just one monitor, leaving\nyou free to work on the other monitor.  To choose which display to favor\n(or to span both), click the 'DualHead' button and follow the instructions\nthere.\n\nTASKBAR: Note that in fake fullscreen mode, the taskbar will still be visible\n(and usable) if the plug-in does not entirely cover all displays & all monitors.\nIf you don't like it, use 'true' fullscreen mode instead, or move the taskbar\n(...there should be a place to move it to, since the plug-in doesn't cover all\nof your displays).  However, if the plug-in does cover all displays and all\nmonitors, the taskbar should be nicely hidden."
+                            "When this option is enabled, the display mode is never changed by\nthe plug-in; instead, the plug-in 'fakes' fullscreen mode by simply\ndisplaying the window on top.  If you don't like it, use 'true'\nfullscreen mode instead."
     IDS_FULLSCREEN_ADAPTER  "Help on fullscreen display adapter selection"
     IDS_FULLSCREEN_ADAPTER_HELP 
                             "This lets you select which display adapter (video card) you'd like to\nrun the plug-in on, when it goes fullscreen.  If you only have one video\ncard and monitor in your system, you will only have one choice here; but\nif you have multiple video cards, or a multi-head video card (one card\nthat drives multiple monitors), there should be two or more choices here.\n\nNote that if you have trouble running in fullscreen mode with multiple\ndisplays, you might want to try the 'fake fullscreen mode' option.\nSee its help screen for more information."

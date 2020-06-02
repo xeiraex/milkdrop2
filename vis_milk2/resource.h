@@ -117,7 +117,6 @@
 #define IDS_MENU_POSITION_X             121
 #define IDD_DESKTOPMODE                 122
 #define IDS_MENU_POSITION_X_TT          122
-#define IDD_DUALHEAD                    123
 #define IDS_MENU_POSITION_Y             123
 #define IDS_MENU_POSITION_Y_TT          124
 #define IDS_MENU_COLOR_RED              125
@@ -329,7 +328,6 @@
 #define IDS_X_FRAME_SEC                 340
 #define IDS_HELP_ON_X_BUTTON            341
 #define IDS_FONTS_HELP                  342
-#define IDS_DUAL_HEAD_HELP              343
 #define IDS_MULTI_SAMPLING              344
 #define IDS_MULTI_SAMPLING_HELP         345
 #define IDS_MAX_FRAMERATE               346
@@ -778,7 +776,6 @@
 #define IDC_FONT_CAPTION                1040
 #define ID_DM_MORE                      1040
 #define IDC_FONTSIZE_CAPTION            1041
-#define ID_DUALHEAD                     1041
 #define IDC_FONTOPTIONS_CAPTION         1042
 #define IDC_SYSTEM_FONT                 1043
 #define IDC_CB_SEPTEXT                  1043
@@ -796,7 +793,6 @@
 #define IDC_CB_TITLE_ANIMS              1047
 #define IDC_FONT_NAME_5                 1047
 #define IDC_DM_ALPHA_FIX_CAPTION        1048
-#define IDC_V_PICK                      1048
 #define IDC_RAND_TITLE                  1048
 #define IDC_FONT_NAME_6                 1048
 #define IDC_CB_MANUAL_SCOOT             1049
@@ -807,7 +803,6 @@
 #define IDC_CB_SHOW_ICONS               1050
 #define IDC_FONT_NAME_8                 1050
 #define IDC_3DSEP                       1050
-#define IDC_H_PICK                      1051
 #define IDC_T5                          1051
 #define IDC_FONT_NAME_9                 1051
 #define IDC_T2                          1052

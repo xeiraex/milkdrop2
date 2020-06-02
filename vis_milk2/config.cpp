@@ -1048,10 +1048,6 @@ BOOL CPluginShell::PluginShellConfigTab1Proc(HWND hwnd,UINT msg,WPARAM wParam,LP
                 WASABI_API_DIALOGBOXPARAMW(IDD_DESKTOPMODE, hwnd, DesktopOptionsDialogProc, (LPARAM)this);
                 break;
 
-			case ID_DUALHEAD:
-                WASABI_API_DIALOGBOXPARAMW(IDD_DUALHEAD, hwnd, DualheadDialogProc, (LPARAM)this);
-                break;
-
             case IDC_ADAPTER_FS:
                 SaveDisplayMode();
                 SaveMultiSamp(FULLSCREEN);
@@ -1154,11 +1150,6 @@ BOOL CPluginShell::PluginShellConfigTab1Proc(HWND hwnd,UINT msg,WPARAM wParam,LP
             case ID_FONTS:
                 StringCbPrintfW(title, sizeof(title), WASABI_API_LNGSTRINGW(IDS_HELP_ON_X_BUTTON), ctrl_name);
                 WASABI_API_LNGSTRINGW_BUF(IDS_FONTS_HELP, buf, 2048);
-                break;
-
-            case ID_DUALHEAD:
-				StringCbPrintfW(title, sizeof(title), WASABI_API_LNGSTRINGW(IDS_HELP_ON_X_BUTTON), ctrl_name);
-                WASABI_API_LNGSTRINGW_BUF(IDS_DUAL_HEAD_HELP, buf, 2048);
                 break;
 
             case IDC_W_MULTISAMPLING_CAPTION:

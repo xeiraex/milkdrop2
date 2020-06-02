@@ -1210,19 +1210,6 @@ void DXContext::MinimizeWinamp(HMONITOR hPluginMonitor)
 	    (!m_winamp_minimized)
 	   )
 	{
-		// nitpicky check: if we're in fake fullscreen mode
-		// and are only going to display on half the screen,
-		// don't minimize Winamp.
-		if (m_current_mode.screenmode == FAKE_FULLSCREEN)
-		{
-			int x = m_monitor_rect.right - m_monitor_rect.left;
-			int y = m_monitor_rect.bottom - m_monitor_rect.top;
-			if ((x >= y*2 && m_current_mode.m_dualhead_horz != 0) ||
-			    (y > x*4/3 && m_current_mode.m_dualhead_vert != 0))
-			{
-				return;
-			}
-		}
 
 		ShowWindow(m_hwnd_winamp, SW_MINIMIZE);
 		// also restore the focus to the plugin window, since this will steal it:

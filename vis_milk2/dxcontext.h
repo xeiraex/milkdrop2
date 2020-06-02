@@ -51,8 +51,6 @@ typedef struct
     D3DDISPLAYMODE display_mode;    // ONLY VALID FOR FULLSCREEN MODE.
     D3DMULTISAMPLE_TYPE multisamp;
     HWND parent_window;
-    int m_dualhead_horz; // 0 = span both, 1 = left only, 2 = right only
-    int m_dualhead_vert; // 0 = span both, 1 = top only, 2 = bottom only
     int m_skin; 
 } 
 DXCONTEXT_PARAMS;

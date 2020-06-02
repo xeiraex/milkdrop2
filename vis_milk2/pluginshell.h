@@ -126,8 +126,6 @@ protected:
     int          m_desktop_textlabel_boxes; // 0 or 1
     int          m_desktop_manual_icon_scoot; // 0 or 1
     int          m_desktop_555_fix;         // 0 = 555, 1 = 565, 2 = 888
-    int          m_dualhead_horz;           // 0 = both, 1 = left, 2 = right
-    int          m_dualhead_vert;           // 0 = both, 1 = top, 2 = bottom
     int          m_save_cpu;                // 0 or 1
     int          m_skin;                    // 0 or 1
     int          m_fix_slow_text;           // 0 or 1
@@ -276,7 +274,6 @@ public:
     static INT_PTR CALLBACK TabCtrlProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam);
     static INT_PTR CALLBACK FontDialogProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam);
     static INT_PTR CALLBACK DesktopOptionsDialogProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam);
-    static INT_PTR CALLBACK DualheadDialogProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam);
 
 private:
     void PushWindowToJustBeforeDesktop(HWND h);
@@ -349,7 +346,6 @@ protected:
     BOOL    PluginShellConfigTab1Proc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam);
     BOOL    PluginShellFontDialogProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam);
     BOOL    PluginShellDesktopOptionsDialogProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam);
-    BOOL    PluginShellDualheadDialogProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam);
     bool    InitConfig(HWND hDialogWnd);
     void    EndConfig();
     void    UpdateAdapters(int screenmode);

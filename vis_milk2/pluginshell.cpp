@@ -842,8 +842,6 @@ void CPluginShell::StuffParams(DXCONTEXT_PARAMS *pParams)
 	pParams->screenmode   = m_screenmode;
 	pParams->display_mode = m_disp_mode_fs;
 	pParams->nbackbuf     = 1;
-	pParams->m_dualhead_horz = m_dualhead_horz;
-	pParams->m_dualhead_vert = m_dualhead_vert;
 	pParams->m_skin = (m_screenmode==WINDOWED) ? m_skin : 0;
 	switch (m_screenmode)
 	{
@@ -1033,8 +1031,6 @@ int CPluginShell::PluginPreInitialize(HWND hWinampWnd, HINSTANCE hWinampInstance
 	m_desktop_textlabel_boxes = 1;
 	m_desktop_manual_icon_scoot = 0;
 	m_desktop_555_fix       = 2;
-	m_dualhead_horz         = 2;
-	m_dualhead_vert         = 1;
 	m_save_cpu              = 1;
 	m_skin                  = 1;
 	m_fix_slow_text         = 0;
@@ -1415,8 +1411,6 @@ void CPluginShell::ReadConfig()
 	m_desktop_textlabel_boxes = GetPrivateProfileIntW(L"settings",L"desktop_textlabel_boxes",m_desktop_textlabel_boxes,m_szConfigIniFile);
 	m_desktop_manual_icon_scoot = GetPrivateProfileIntW(L"settings",L"desktop_manual_icon_scoot",m_desktop_manual_icon_scoot,m_szConfigIniFile);
 	m_desktop_555_fix      = GetPrivateProfileIntW(L"settings",L"desktop_555_fix",m_desktop_555_fix,m_szConfigIniFile);
-	m_dualhead_horz        = GetPrivateProfileIntW(L"settings",L"dualhead_horz",m_dualhead_horz,m_szConfigIniFile);
-	m_dualhead_vert        = GetPrivateProfileIntW(L"settings",L"dualhead_vert",m_dualhead_vert,m_szConfigIniFile);
 	m_save_cpu             = GetPrivateProfileIntW(L"settings",L"save_cpu",m_save_cpu,m_szConfigIniFile);
 	m_skin                 = GetPrivateProfileIntW(L"settings",L"skin",m_skin,m_szConfigIniFile);
 	m_fix_slow_text        = GetPrivateProfileIntW(L"settings",L"fix_slow_text",m_fix_slow_text,m_szConfigIniFile);
@@ -1500,8 +1494,6 @@ void CPluginShell::WriteConfig()
 	WritePrivateProfileIntW(m_desktop_textlabel_boxes,L"desktop_textlabel_boxes",m_szConfigIniFile,L"settings");
 	WritePrivateProfileIntW(m_desktop_manual_icon_scoot,L"desktop_manual_icon_scoot",m_szConfigIniFile,L"settings");
 	WritePrivateProfileIntW(m_desktop_555_fix,L"desktop_555_fix",m_szConfigIniFile,L"settings");
-	WritePrivateProfileIntW(m_dualhead_horz,L"dualhead_horz",m_szConfigIniFile,L"settings");
-	WritePrivateProfileIntW(m_dualhead_vert,L"dualhead_vert",m_szConfigIniFile,L"settings");
 	WritePrivateProfileIntW(m_save_cpu,L"save_cpu",m_szConfigIniFile,L"settings");
 	WritePrivateProfileIntW(m_skin,L"skin",m_szConfigIniFile,L"settings");
 	WritePrivateProfileIntW(m_fix_slow_text,L"fix_slow_text",m_szConfigIniFile,L"settings");
