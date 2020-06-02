@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C++ Express 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vis_milk2", "plugin.vcxproj", "{881FB534-7396-485A-ADC2-6FBEBED7A0F4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "milkdrop", "milkdrop.vcxproj", "{881FB534-7396-485A-ADC2-6FBEBED7A0F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

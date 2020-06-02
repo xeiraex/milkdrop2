@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>vis_milk2</ProjectName>
+    <ProjectName>milkdrop</ProjectName>
     <ProjectGuid>{881FB534-7396-485A-ADC2-6FBEBED7A0F4}</ProjectGuid>
     <RootNamespace>vis_milk2</RootNamespace>
   </PropertyGroup>
@@ -49,7 +49,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Release/plugin.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Release/milkdrop.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -76,7 +76,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/plugin.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/milkdrop.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
