@@ -877,6 +877,7 @@ void CPluginShell::ToggleDesktop()
 	case FULLSCREEN:
 	case FAKE_FULLSCREEN:
 		m_screenmode = DESKTOP;
+		ShowCursor(true);
 		break;
 	case DESKTOP:
 		m_screenmode = WINDOWED;
@@ -950,6 +951,14 @@ void CPluginShell::ToggleFullScreen()
 	SetForegroundWindow(m_lpDX->GetHwnd());
 	SetActiveWindow(m_lpDX->GetHwnd());
 	SetFocus(m_lpDX->GetHwnd());
+	if (m_screenmode == FULLSCREEN || m_screenmode == FAKE_FULLSCREEN)
+	{
+		while (ShowCursor(false) >= 0);
+	}
+	else
+	{
+		ShowCursor(true);
+	}
 }
 
 void CPluginShell::ToggleHelp()
