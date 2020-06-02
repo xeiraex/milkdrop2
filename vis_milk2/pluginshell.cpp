@@ -2747,8 +2747,14 @@ LRESULT CPluginShell::PluginShellWindowProc(HWND hWnd, unsigned uMsg, WPARAM wPa
 		return 0;
 	case WM_LBUTTONDOWN:
 	case WM_LBUTTONDBLCLK:
+	case WM_MBUTTONDBLCLK:
 	case WM_RBUTTONDOWN:
 	case WM_RBUTTONUP:
+		if (uMsg == WM_MBUTTONDBLCLK && m_frame > 0)
+		{
+			ToggleDesktop();
+			return 0;
+		}
 		// Toggle between Fullscreen and Windowed modes on double-click
 		// note: this requires the 'CS_DBLCLKS' windowclass style!
 		if (m_screenmode != DESKTOP)
