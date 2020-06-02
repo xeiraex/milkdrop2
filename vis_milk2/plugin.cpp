@@ -4759,7 +4759,7 @@ void CPlugin::MyRenderUI(
 			}
 			else
 			{
-                UpdatePresetList(); // make sure list is completely ready
+                UpdatePresetList(true); // used to, but no longer make sure list is completely ready
 
                 // quick checks
                 for (int mash=0; mash<MASH_SLOTS; mash++)
@@ -5877,7 +5877,7 @@ LRESULT CPlugin::MyWindowProc(HWND hWnd, unsigned uMsg, WPARAM wParam, LPARAM lP
                         if (GetFileAttributesW(g_plugin.m_szPresetDir) == -1)
                             bSuccess = false;
                         if (bSuccess) {
-    						UpdatePresetList(false,true,false);
+							UpdatePresetList(true,true,false);
                             bSuccess = (m_nPresets > 0);
                         }
 
@@ -6239,7 +6239,7 @@ LRESULT CPlugin::MyWindowProc(HWND hWnd, unsigned uMsg, WPARAM wParam, LPARAM lP
 
 					WritePrivateProfileStringW(L"settings",L"szPresetDir",GetPresetDir(),GetConfigIniFile());
 
-					UpdatePresetList(false, true, false);	
+					UpdatePresetList(true, true, false);
 					
 					// set current preset index to -1 because current preset is no longer in the list
 					m_nCurrentPreset = -1;
@@ -6646,7 +6646,7 @@ int CPlugin::HandleRegularKey(WPARAM wParam)
 			m_UI_mode == UI_REGULAR || 
 			m_UI_mode == UI_MENU)
 		{
-            UpdatePresetList(); // make sure list is completely ready
+            UpdatePresetList(true); // used to, but no longer make sure list is completely ready
 			m_UI_mode = UI_LOAD;
 			m_bUserPagedUp = false;
 			m_bUserPagedDown = false;
@@ -8963,7 +8963,7 @@ void CPlugin::SavePresetAs(wchar_t *szNewFile)
 		lstrcpyW(m_pState->m_szDesc, m_waitstring.szText);
 
 		// refresh file listing
-		UpdatePresetList(false,true);
+		UpdatePresetList(true,true);
 	}
 }
 
@@ -8987,7 +8987,7 @@ void CPlugin::DeletePresetFile(wchar_t *szDelFile)
 
 		// refresh file listing & re-select the next file after the one deleted
         int newPos = m_nPresetListCurPos;
-		UpdatePresetList(false,true);
+		UpdatePresetList(true,true);
         m_nPresetListCurPos = max(0, min(m_nPresets-1, newPos));
 	}
 }
@@ -9030,7 +9030,7 @@ void CPlugin::RenamePresetFile(wchar_t *szOldFile, wchar_t *szNewFile)
 			lstrcpyW(buf2, m_waitstring.szText);
 			lstrcatW(buf2, L".milk");
             m_presets[m_nPresetListCurPos].szFilename = buf2;
-			UpdatePresetList(false,true,false);
+			UpdatePresetList(true,true,false);
 
             // jump to (highlight) the new file:
             m_nPresetListCurPos = 0;
