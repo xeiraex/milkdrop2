@@ -4911,7 +4911,7 @@ void CPlugin::MyRenderUI(
                     //    GetFont(SIMPLE_FONT)->Begin();
 
                     rect = orig_rect;
-				    for (i=first_line; i<last_line; i++)
+				    for (i=first_line; i<last_line && m_presets[i].szFilename.c_str(); i++)
 				    {
 					    // remove the extension before displaying the filename.  also pad w/spaces.
 					    //lstrcpy(str, m_pPresetAddr[i]);
@@ -5069,7 +5069,7 @@ void CPlugin::MyRenderUI(
                     //    GetFont(SIMPLE_FONT)->Begin();
 
                     rect = orig_rect;
-				    for (i=first_line; i<last_line; i++)
+				    for (i=first_line; i<last_line && m_presets[i].szFilename.c_str(); i++)
 				    {
 					    // remove the extension before displaying the filename.  also pad w/spaces.
 					    //lstrcpy(str, m_pPresetAddr[i]);
